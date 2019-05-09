@@ -2,13 +2,23 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RatingsComponent} from './ratings.component';
 import {RatingsService} from './ratings.service';
-import {MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {
+  MAT_DIALOG_DATA,
+  MatButtonModule,
+  MatDialog,
+  MatDialogRef,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
-    RatingsComponent
+    RatingsComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -17,11 +27,14 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatIconModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [],
   providers: [
     RatingsService
+  ],
+  entryComponents: [
+    ModalComponent
   ]
 
 })
