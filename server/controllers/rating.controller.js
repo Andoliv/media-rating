@@ -60,9 +60,10 @@ ratingCtrl.searchUrlRating = async (req, res) => {
     let url = req.query.url;
     let urlReplaced = url.trim().replace(/^(http(s|):\/\/)?(www\.|)/g, '');
     let urlReplaced2 = urlReplaced.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+    let regexSearch = '.*'+urlReplaced2+'.*';
 
     let rating = await Rating.find({
-        url: {$regex: '.*'+urlReplaced2+'.*'}
+        url: {$regex: new RegExp("^" + regexSearch.toLocaleLowerCase(), "i")}
     });
         // .then(ratingRes => {
         //     console.log('Resultado: ');
