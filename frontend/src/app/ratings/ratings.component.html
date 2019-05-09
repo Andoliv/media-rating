@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Buscar por url</span>
+          <p>A busca ignora o <b>http://</b>, <b>https://</b> e <b>www</b> do link.</p>
+        </div>
+        <div class="card-content">
+          <form #searchRatingForm="ngForm" (ngSubmit)="searchRating(searchRatingForm)">
+            <div class="row">
+              <div class="input-field col s12">
+                <input matInput type="text" name="searchUrl" id="searchUrl" [(ngModel)]="ratingsService.searchUrl"
+                       placeholder="Buscar pela URL">
+              </div>
+              <div class="card-action">
+                <div class="input-field col s2">
+                  <button mat-raised-button color="primary">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                  <button mat-raised-button color="primary" (click)="showAddRating()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col s12">
+      <table>
+        <thead>
+        <th>Query</th>
+        <th>URL</th>
+        <th>Rating</th>
+        <th>Note</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rating of ratingsService.ratings">
+          <td>{{rating.query}}</td>
+          <td>{{rating.url}}</td>
+          <td><span class="{{rating.rating}}">{{rating.rating}}</span></td>
+          <td>{{rating.note}}</td>
+          <td>
+            <a (click)="editRating(rating);showAddRating()" class="pointer" title="Editar">
+              <i class="material-icons">edit</i>
+            </a>
+            <a (click)="deleteRating(rating._id)" class="pointer" title="Remover">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+        <tr [hidden]="!isEmpty">
+          <td colspan="5">
+            <span class="no-rating">Rating não encontrado.</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="row" [hidden]="hiddenAddRating">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <form #ratingForm="ngForm" (ngSubmit)="addRating(ratingForm)">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="ratingsService.selectedRating._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input matInput type="text" name="query" #query="ngModel"
+                       [(ngModel)]="ratingsService.selectedRating.query"
+                       placeholder="Digite a query">
+              </div>
+              <div class="input-field col s12">
+                <input matInput type="text" name="url" #url="ngModel" [(ngModel)]="ratingsService.selectedRating.url"
+                       placeholder="Digite a url">
+              </div>
+              <div class="input-field col s12">
+                <input type="hidden" name="rating" #rating="ngModel" [(ngModel)]="ratingsService.selectedRating.rating"
+                       placeholder="Selecione o rating">
+
+                <div *ngFor="let enum of RATINGS">
+                  <label for="enum_answer_{{enum.name}}">
+                    <input class="with-gap" id="enum_answer_{{enum.name}}" [value]='enum.name' type="radio" name="enums"
+                           [(ngModel)]="ratingsService.selectedRating.rating">
+                    <span>{{enum.name}}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="input-field col s12">
+                <input matInput type="text" name="note" #note="ngModel" [(ngModel)]="ratingsService.selectedRating.note"
+                       placeholder="Campo livre para observações">
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12">
+                  <button class="btn left">Salvar</button>
+                  <button class="btn right" (click)="resetForm(ratingForm)">Limpar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

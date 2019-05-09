@@ -1,0 +1,49 @@
+.pointer {
+  cursor: pointer;
+}
+
+input[ng-reflect-model="Highly-Relevant"]:checked + span, .Highly-Relevant {
+  background-color: darkgreen;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="Relevant"]:checked + span, .Relevant {
+  background-color: green;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="Related"]:checked + span, .Related {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="Not-Related"]:checked + span, .Not-Related {
+  background-color: orange;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="VDP"]:checked + span, .VDP {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="Detrimental"]:checked + span, .Detrimental {
+  background-color: red;
+  color: black;
+  font-weight: bold;
+}
+
+input[ng-reflect-model="Can't-Judge"]:checked + span, .Can\'t-Judge {
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
+}
+
+button {
+  margin-right: 5px;
+}
