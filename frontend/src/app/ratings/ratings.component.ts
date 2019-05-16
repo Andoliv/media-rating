@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {RatingsService} from './ratings.service';
 import {NgForm} from '@angular/forms';
 import {Rating} from '../models/Rating';
-import {MatDialog} from '@angular/material';
-import {ModalComponent} from './modal/modal.component';
 
 declare var M: any;
 
@@ -41,7 +39,7 @@ export class RatingsComponent implements OnInit {
   rating: string;
   note: string;
 
-  constructor(private ratingsService: RatingsService, public dialog: MatDialog) {
+  constructor(private ratingsService: RatingsService) {
   }
 
   ngOnInit() {
@@ -113,19 +111,13 @@ export class RatingsComponent implements OnInit {
     this.hiddenAddRating = !this.hiddenAddRating;
   }
 
-  showAddRating() {
+  showAddRating(url: string) {
+    this.ratingsService.selectedRating.url = url;
     this.hiddenAddRating = false;
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '250px',
-      data: {query: this.query, url: this.url, rating: this.rating, note: this.note}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.url = result;
-    });
+  hideAddRating() {
+    this.hiddenAddRating = true;
   }
 
 }

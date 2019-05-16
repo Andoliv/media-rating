@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RatingsModule, RatingsService} from './ratings';
 import {HttpClientModule} from '@angular/common/http';
+import {MatDialogModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     RatingsModule,
     HttpClientModule,
+    MatDialogModule
   ],
   providers: [
     RatingsService
