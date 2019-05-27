@@ -14,7 +14,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({Origin: 'http://localhost:4200'}));
 
-
 // Routes
 let apiRoutes = require('./routes/rating.route');
 app.use('/api/ratings', apiRoutes);

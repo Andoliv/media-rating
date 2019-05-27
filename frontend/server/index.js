@@ -19,7 +19,7 @@ app.use(cors({Origin: 'http://localhost:4200'}));
 let apiRoutes = require('./routes/rating.route');
 app.use('/api/ratings', apiRoutes);
 
-// Starting the server
+// Starting the serverDB is connected
 app.listen(app.get('port'), () => {
     console.log('Server on port: ', app.get('port'));
 });

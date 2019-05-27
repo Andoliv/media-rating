@@ -30,6 +30,60 @@
     </div>
   </div>
 
+  <div class="row" [hidden]="hiddenAddRating">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <form #ratingForm="ngForm" (ngSubmit)="addRating(ratingForm)">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="ratingsService.selectedRating._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input matInput type="text" name="query" #query="ngModel" required
+                       [(ngModel)]="ratingsService.selectedRating.query"
+                       placeholder="Digite a query" >
+                <mat-error *ngIf="query.invalid">A query é obrigatória.</mat-error>
+              </div>
+              <div class="input-field col s12">
+                <input matInput type="text" name="url" #url="ngModel" [(ngModel)]="ratingsService.selectedRating.url"
+                       placeholder="Digite a url" required>
+                <mat-error *ngIf="url.invalid">A url é obrigatória.</mat-error>
+              </div>
+              <div class="input-field col s12">
+                <input type="hidden" name="rating" #rating="ngModel" [(ngModel)]="ratingsService.selectedRating.rating"
+                       placeholder="Selecione o rating" required>
+                <div *ngFor="let enum of RATINGS">
+                  <label for="enum_answer_{{enum.name}}">
+                    <input class="with-gap" id="enum_answer_{{enum.name}}" [value]='enum.name' type="radio" name="enums"
+                           [(ngModel)]="ratingsService.selectedRating.rating">
+                    <span>{{enum.name}}</span>
+                  </label>
+                </div>
+                <mat-error *ngIf="rating.invalid">O rating é obrigatório.</mat-error>
+              </div>
+              <div class="input-field col s12">
+                <input matInput type="text" name="note" #note="ngModel" [(ngModel)]="ratingsService.selectedRating.note"
+                       placeholder="Campo livre para observações">
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12">
+                  <button mat-raised-button color="primary" title="Salvar" [disabled]="ratingForm.invalid" (click)="searchRating(searchRatingForm);">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                  <button mat-raised-button color="primary" (click)="resetForm(ratingForm)" title="Limpar">
+                    <mat-icon>backspace</mat-icon>
+                  </button>
+                  <button mat-raised-button color="primary" (click)="resetForm(ratingForm);hideAddRating();" title="Fechar">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col s12">
@@ -48,10 +102,10 @@
           <td><span class="{{rating.rating}}">{{rating.rating}}</span></td>
           <td>{{rating.note}}</td>
           <td>
-            <a (click)="editRating(rating);showAddRating()" class="pointer" title="Editar">
+            <a (click)="editRating(rating);showAddRating(rating.url);" class="pointer" title="Editar">
               <i class="material-icons">edit</i>
             </a>
-            <a (click)="deleteRating(rating._id)" class="pointer" title="Remover">
+            <a (click)="deleteRating(rating._id);searchRating(searchRatingForm);" class="pointer" title="Remover">
               <i class="material-icons">delete</i>
             </a>
           </td>
@@ -63,59 +117,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-
-  <div class="row" [hidden]="hiddenAddRating">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <form #ratingForm="ngForm" (ngSubmit)="addRating(ratingForm)">
-            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="ratingsService.selectedRating._id">
-            <div class="row">
-              <div class="input-field col s12">
-                <input matInput type="text" name="query" #query="ngModel" required
-                       [(ngModel)]="ratingsService.selectedRating.query"
-                       placeholder="Digite a query">
-              </div>
-              <div class="input-field col s12">
-                <input matInput type="text" name="url" #url="ngModel" [(ngModel)]="ratingsService.selectedRating.url"
-                       placeholder="Digite a url" required>
-              </div>
-              <div class="input-field col s12">
-                <input type="hidden" name="rating" #rating="ngModel" [(ngModel)]="ratingsService.selectedRating.rating"
-                       placeholder="Selecione o rating" required>
-
-                <div *ngFor="let enum of RATINGS">
-                  <label for="enum_answer_{{enum.name}}">
-                    <input class="with-gap" id="enum_answer_{{enum.name}}" [value]='enum.name' type="radio" name="enums"
-                           [(ngModel)]="ratingsService.selectedRating.rating">
-                    <span>{{enum.name}}</span>
-                  </label>
-                </div>
-              </div>
-              <div class="input-field col s12">
-                <input matInput type="text" name="note" #note="ngModel" [(ngModel)]="ratingsService.selectedRating.note"
-                       placeholder="Campo livre para observações">
-              </div>
-              <div class="card-action">
-                <div class="input-field col s12">
-                  <button mat-raised-button color="primary" title="Salvar">
-                    <mat-icon>save</mat-icon>
-                  </button>
-                  <button mat-raised-button color="primary" (click)="resetForm(ratingForm)" title="Limpar">
-                    <mat-icon>backspace</mat-icon>
-                  </button>
-                  <button mat-raised-button color="primary" (click)="resetForm(ratingForm);hideAddRating();" title="Fechar">
-                    <mat-icon>clear</mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 

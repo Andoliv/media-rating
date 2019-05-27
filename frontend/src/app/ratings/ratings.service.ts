@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Rating} from '../models/Rating';
 
 @Injectable({
@@ -32,13 +32,15 @@ export class RatingsService implements OnInit {
     return this.http.put(this.URL_API + `/${rating._id}`, rating);
   }
 
-  deleteRating(_id: string) {
-    return this.http.delete(this.URL_API + `/${_id}`);
+  deleteRating(id: string) {
+    return this.http.delete(this.URL_API + `/${id}`);
   }
 
   searchRating(url: string) {
-    const searchUrl = this.URL_API + '?url=' + url;
+    const httpHeader = new HttpHeaders().set('url', url);
+    // const searchUrl = this.URL_API + '?url=' + url;
+    const searchUrl = this.URL_API;
     console.log(searchUrl);
-    return this.http.get(searchUrl);
+    return this.http.get(searchUrl, {headers: httpHeader});
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RatingsService} from './ratings.service';
-import {NgForm} from '@angular/forms';
+import {FormControl, NgForm, Validators} from '@angular/forms';
 import {Rating} from '../models/Rating';
 
 declare var M: any;
@@ -39,12 +39,9 @@ export class RatingsComponent implements OnInit {
   rating: string;
   note: string;
 
-  constructor(private ratingsService: RatingsService) {
-  }
+  constructor(private ratingsService: RatingsService) {}
 
-  ngOnInit() {
-    // this.getRatings();
-  }
+  ngOnInit() {}
 
   addRating(form: NgForm) {
     if (form.value._id) {
@@ -77,10 +74,10 @@ export class RatingsComponent implements OnInit {
     this.ratingsService.selectedRating = rating;
   }
 
-  deleteRating(_id: string) {
+  deleteRating(id: string) {
 
     if (confirm('Tem certeza que deseja remover?')) {
-      this.ratingsService.deleteRating(_id)
+      this.ratingsService.deleteRating(id)
         .subscribe(res => {
           M.toast({html: 'Removido com sucesso!'});
         });
@@ -119,5 +116,4 @@ export class RatingsComponent implements OnInit {
   hideAddRating() {
     this.hiddenAddRating = true;
   }
-
 }

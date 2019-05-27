@@ -2,15 +2,15 @@ const Rating = require('../models/rating');
 const ratingCtrl = {};
 
 const options = {
-    "limit": 20,
-    "skip": 10
+    limit: 5,
+    skip: 2
 };
 
 ratingCtrl.getRatings = async (req, res) => {
-    if (req.query['url']) {
+    if (req.headers.url) {
         ratingCtrl.searchUrlRating(req, res);
     } else {
-        const ratings = await Rating.find({}, options);
+        const ratings = await Rating.find({}, null, options);
         res.json(ratings);
     }
 };
@@ -57,21 +57,24 @@ ratingCtrl.deleteRating = async (req, res) => {
 };
 
 ratingCtrl.searchUrlRating = async (req, res) => {
-    let url = req.query.url;
-    let urlReplaced = url.trim().replace(/^(http(s|):\/\/)?(www\.|)/g, '');
-    let urlReplaced2 = urlReplaced.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
-    let regexSearch = '.*'+urlReplaced2+'.*';
-
+    console.log(':: START searchUrlRating ::');
+    let url = req.headers.url;
+    let urlReplaced = url.trim().replace(/^(http(s|):\/\/)?(www\.|)/g, '').replace(' ', '');
+    // let urlReplaced2 = urlReplaced.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+    let regexSearch = '^.*'+urlReplaced+'.*';
+    let regExp = new RegExp(regexSearch.toLocaleLowerCase(), "i");
+    console.log('Server - regExp: ' + regExp);
+    console.log(':: END searchUrlRating ::');
     let rating = await Rating.find({
-        url: {$regex: new RegExp("^" + regexSearch.toLocaleLowerCase(), "i")}
+        url: {$regex: regExp}
     });
         // .then(ratingRes => {
         //     console.log('Resultado: ');
         //     console.log(ratingRes);
         // })
         // .catch(e => {
-        //     console.error(e)
-        // });
+    // });
+    //     console.error(e)
 
     res.json(rating);
 };

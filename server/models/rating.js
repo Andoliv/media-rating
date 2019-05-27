@@ -40,9 +40,10 @@ const RatingSchema = new Schema({
 
 RatingSchema.index({
     query: 'text',
-    url: 'text'
+    url: 'text',
+    rating: 'text',
+    note: 'text'
 });
-
 
 const Rating = mongoose.model('Rating', RatingSchema);
 module.exports = Rating;

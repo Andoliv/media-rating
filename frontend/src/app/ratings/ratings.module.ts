@@ -4,7 +4,7 @@ import {RatingsComponent} from './ratings.component';
 import {RatingsService} from './ratings.service';
 import {MatButtonModule, MatIconModule, MatInputModule, MatSelectModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatIconModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [],
   providers: [
